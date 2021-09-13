@@ -1,0 +1,47 @@
+cabal-version: 2.4
+name:          greeter
+version:       0.1.0.0
+license:       ISC
+license-file:  LICENSE
+author:        Kevin Mullins
+maintainer:    kevin@pnotequalnp.com
+
+common base
+  default-language:   Haskell2010
+  default-extensions:
+    BlockArguments
+    DerivingStrategies
+    GeneralizedNewtypeDeriving
+    ImportQualifiedPost
+    LambdaCase
+    TypeApplications
+
+  build-depends:      base ^>=4.14.1.0
+  ghc-options:        -Wall
+
+library
+  import:          base
+  hs-source-dirs:  src
+  exposed-modules:
+    ConsoleIO
+    Greeter
+
+executable greeter
+  import:        base
+  main-is:       Main.hs
+  build-depends: greeter
+
+test-suite greeter-test
+  import:         base
+  hs-source-dirs: test
+  main-is:        Driver.hs
+  type:           exitcode-stdio-1.0
+  other-modlues:  Test
+  build-depends:
+    , greeter
+    , hedgehog
+    , mtl
+    , tasty
+    , tasty-discover
+    , tasty-hedgehog
+    , tasty-hunit
